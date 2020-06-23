@@ -33,6 +33,11 @@ dependencies {
     implementation group: 'org.tpolecat', name: 'doobie-core_2.13', version: '0.9.0'
     implementation group: 'org.tpolecat', name: 'doobie-postgres_2.13', version: '0.9.0'
 
+//    implementation group: 'com.typesafe.akka', name: "akka-actor_2.13", version: '2.6.6'
+    implementation group: 'com.typesafe.akka', name: "akka-serialization-jackson_2.13", version: '2.6.6'
+
+    implementation group: 'com.typesafe.akka', name: "akka-persistence-typed_2.13", version: '2.6.6'
+
     // Dependency injections
     //    compile group: 'com.softwaremill.macwire', name: 'core_2.10', version: '0.4.1'
     compileOnly group: 'com.softwaremill.macwire', name: 'macros_2.13', version: '2.3.6'
@@ -46,12 +51,15 @@ dependencies {
     testImplementation 'junit:junit:null'
     testImplementation 'org.scalatest:scalatest_2.13:3.1.2'
     testImplementation 'org.scalatestplus:junit-4-12_2.13:3.1.2.0'
+    testImplementation group: 'com.typesafe.akka', name: "akka-actor-testkit-typed_2.13", version: '2.6.6'
 
     testCompile group: 'org.tpolecat', name: 'doobie-specs2_2.13', version: '0.9.0'
 
 
     // Need scala-xml at test runtime
     testRuntimeOnly 'org.scala-lang.modules:scala-xml_2.13:1.2.0'
+    runtimeClasspath group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+    testRuntimeClasspath group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
 }
 
 jar {

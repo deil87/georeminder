@@ -1,0 +1,39 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: helloworldservice
+  labels:
+    app: hello-world
+spec:
+  selector:
+    app: hello-world
+  ports:
+    - protocol: "TCP"
+      port: 8080
+      targetPort: 80
+      nodePort: 30001
+  type: LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world-dep
+  labels:
+    app: hello-world
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: hello-world
+  template:
+    metadata:
+      labels:
+        app: hello-world
+    spec:
+      containers:
+        - name: hell-world
+          image: tutum/hello-world
+          ports:
+            - containerPort: 80
