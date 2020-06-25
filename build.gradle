@@ -60,6 +60,7 @@ dependencies {
     testRuntimeOnly 'org.scala-lang.modules:scala-xml_2.13:1.2.0'
     runtimeClasspath group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
     testRuntimeClasspath group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+    testImplementation group: 'org.fusesource.leveldbjni', name: 'leveldbjni-all', version: '1.8'
 }
 
 jar {
