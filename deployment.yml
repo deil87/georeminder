@@ -10,9 +10,12 @@ spec:
     app: hello-world
   ports:
     - protocol: "TCP"
-      port: 8080
-      targetPort: 80
-      nodePort: 30001
+      port: 8080  # port that other pods can communicate with this service within the cluster
+      targetPort: 80 # ( internal port within pod) targetPort is the port on which the service will send requests to, that your pod will be listening on. Your application in the container will need to be listening on this port also.
+      nodePort: 30001 # NodePort exposes a service externally to the cluster by means of the target nodes IP address and the NodePort. NodePort is the default setting if the port field is not specified.
+      # to access pod from you local machine we need IP address; get it by `kubectl describe pod [hello-world-dep-68f4b87ffb-j6tv2]`
+      # Response: "Node:         minikube/192.168.99.100 "
+      # http://192.168.99.100:30001/
   type: LoadBalancer
 
 ---
