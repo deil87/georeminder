@@ -28,11 +28,13 @@ object MainApp extends IOApp {
 //    ActorSystem(HelloWorldMain(), "hello")
 
   def httpApp(blocker: Blocker):HttpApp[IO] = {
-    val value: HttpRoutes[IO] = fileService(FileService.Config("./assets", blocker))
+    val value: HttpRoutes[IO] = fileService(FileService.Config("./assets/static-web", blocker)) // assets is a resource directory and its content being copied to the classpath
     val tweets: HttpRoutes[IO] = tweetService.routes
     val router: HttpRoutes[IO] = Router(
       "/" -> value,
-      "/api" -> tweets
+      "/hello/" -> helloWorldService.routes,
+      "/api" -> tweets,
+      "/user" -> userService.routes
     )
     router.orNotFound
   }

@@ -40,3 +40,44 @@ spec:
           image: tutum/hello-world
           ports:
             - containerPort: 80
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: helloworldservice-two
+  labels:
+    app: hello-world-two
+spec:
+  selector:
+    app: hello-world-two
+  ports:
+    - protocol: "TCP"
+      port: 8080  # port that other pods can communicate with this service within the cluster
+      targetPort: 8080 # ( internal port within pod) targetPort is the port on which the service will send requests to, that your pod will be listening on. Your application in the container will need to be listening on this port also.
+      nodePort: 30002
+  type: LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world-dep-two
+  labels:
+    app: hello-world-two
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: hello-world-two
+  template:
+    metadata:
+      labels:
+        app: hello-world-two
+    spec:
+      containers:
+        - name: georeminder-app
+          image: deil87/georeminder:v2
+          ports:
+            - containerPort: 80
